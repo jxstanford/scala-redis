@@ -109,6 +109,17 @@ class TimeSeriesOperationsSpec extends Spec
       }
   }
 
+  describe("tsrange with 'novalues' flag") {
+    it ("should retrieve values") {
+      add
+      val r1 = tsrangeNoValues("esu1", 0, 4)
+      r1.isDefined should equal (true)
+      r1.get.size should equal (5)
+      r1.get.head should equal (1)
+      r1.get.apply(4) should equal (5)
+    }
+  }
+
   describe("tsrangebytime with no flags") {
     it("should retrieve values") {
       add
@@ -136,6 +147,17 @@ class TimeSeriesOperationsSpec extends Spec
       r1.get.size should equal (5)
       r1.get.head should equal ((1,"1300.00,10,1300.00,1300.25"))
       r1.get.apply(4) should equal ((5,"1299.0,100,1299.0,1299.25"))
+    }
+  }
+
+  describe("tsrangebytime with 'novalues' flag") {
+    it ("should retrieve values") {
+      add
+      val r1 = tsrangebytimeNoValues("esu1", 1, 5)
+      r1.isDefined should equal (true)
+      r1.get.size should equal (5)
+      r1.get.head should equal (1)
+      r1.get.apply(4) should equal (5)
     }
   }
 }
