@@ -36,6 +36,7 @@ trait RedisCommand extends Redis
   with SetOperations
   with SortedSetOperations
   with HashOperations
+  with TimeSeriesOperations
   
 
 class RedisClient(override val host: String, override val port: Int)
