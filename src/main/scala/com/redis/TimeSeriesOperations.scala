@@ -55,6 +55,11 @@ trait TimeSeriesOperations { self: Redis =>
   def tsrangeWithTimes[A](key: Any, start: Int, end: Int)(implicit format: Format, parse: Parse[A]): Option[List[(Double, A)]] = {
     send("TSRANGE", List(key, start, end, "withtimes"))(asListPairs(Parse.Implicits.parseDouble, parse).map(_.flatten))
   }
+  // TSRANGE NOVALUES
+  // Brings back time entries within the range.  The range includes start and end which
+  // represent positions in the series.
+  def tsrangeNoValues(key: Any, start: Int, end: Int)(implicit format: Format): Option[List[Double]] =
+    send("TSRANGE", List(key, start, end, "novalues"))(asList[Double](Parse.Implicits.parseDouble).map(_.flatten))
 
   // TSRANGEBYTIME
   //
@@ -67,6 +72,12 @@ trait TimeSeriesOperations { self: Redis =>
   def tsrangebytimeWithTimes[A](key: Any, start: Int, end: Int)(implicit format: Format, parse: Parse[A]): Option[List[(Double, A)]] = {
     send("TSRANGEBYTIME", List(key, start, end, "withtimes"))(asListPairs(Parse.Implicits.parseDouble, parse).map(_.flatten))
   }
+
+// TSRANGE NOVALUES
+  // Brings back time entries within the range.  The range includes start and end which
+  // represent positions in the series.
+  def tsrangebytimeNoValues(key: Any, start: Double, end: Double)(implicit format: Format): Option[List[Double]] =
+    send("TSRANGEBYTIME", List(key, start, end, "novalues"))(asList[Double](Parse.Implicits.parseDouble).map(_.flatten))
 
   // TSCOUNT
   //

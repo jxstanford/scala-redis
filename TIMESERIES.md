@@ -1,0 +1,3 @@
+This library contains additional functionality that maps to the isbardel/redis branch of redis.  The additional functionality provides efficient support for time series data.  All additional opertions are contained in the TimeSeriesOpertions trait which has been mixed in to the RedisCommand trait.  
+
+The additional commands are similar to those in SortedSetOperations. Aside from the method names, the primary difference to a caller is that time is used for ranking.  Typical usage for financial data would include using the ticker symbol as the key, the timestamp of a record converted to a Double as the ranking, and the remainder fo the record as the value.  For usage examples, review the tests contained in TimeSeriesOperationsSpec.  
