@@ -69,7 +69,7 @@ trait TimeSeriesOperations { self: Redis =>
   // TSRANGEBYTIME WITHTIMES
   // Brings back time/value pairs for entries within the range.  The range includes start and end which
   // represent positions in the series.
-  def tsrangebytimeWithTimes[A](key: Any, start: Int, end: Int)(implicit format: Format, parse: Parse[A]): Option[List[(Double, A)]] = {
+  def tsrangebytimeWithTimes[A](key: Any, start: Double, end: Double)(implicit format: Format, parse: Parse[A]): Option[List[(Double, A)]] = {
     send("TSRANGEBYTIME", List(key, start, end, "withtimes"))(asListPairs(Parse.Implicits.parseDouble, parse).map(_.flatten))
   }
 
